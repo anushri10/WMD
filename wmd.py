@@ -73,6 +73,8 @@ for comment in hw_comments:
     no_of_comments = len(comments)
     heading = "Comment "+str(num)
     pg_no = pdf.page_no()
+    # checking for page no. in advance based on future formatting(line break) that will be done 
+    # to ensure all sentences of comment are in the same page for each heading.
     if(pdf.ln(2*(no_of_comments+1))):
         if(pdf.page_no()!=pg_no):
             pdf.add_page()
@@ -82,6 +84,8 @@ for comment in hw_comments:
         if len(single_comment) == 1:
             continue
         print(single_comment)
+
+        #can't apply stemming as google negative pretrained vectors are used.
         '''
         single_comment = single_comment.strip()
         tokenized_word = word_tokenize(single_comment)
@@ -110,10 +114,7 @@ for comment in hw_comments:
             for word in swords.copy():
                 if word in stopwords.words('english'):
                     swords.remove(word)
-
             swords = list(swords)
-            
-
             distance = wordmodel.wmdistance(cwords, swords)
             wmd.append(distance)
 
